@@ -1,9 +1,9 @@
 package com.example.subcast.controllers;
 
-import com.example.app.subcast.db.Account;
-import com.example.app.subcast.db.Token;
-import com.example.app.subcast.db.repositories.AccountRepository;
-import com.example.app.subcast.db.repositories.HistoryRepository;
+import com.example.subcast.db.Account;
+import com.example.subcast.db.Token;
+import com.example.subcast.db.repositories.AccountRepository;
+import com.example.subcast.db.repositories.HistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;

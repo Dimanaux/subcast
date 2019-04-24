@@ -1,9 +1,10 @@
 package com.example.subcast.controllers;
 
-import com.example.app.subcast.db.Account;
-import com.example.app.subcast.db.Token;
-import com.example.app.subcast.db.repositories.AccountRepository;
-import com.example.app.subcast.db.repositories.ProgressRepository;
+import com.example.subcast.db.Account;
+import com.example.subcast.db.Progress;
+import com.example.subcast.db.Token;
+import com.example.subcast.db.repositories.AccountRepository;
+import com.example.subcast.db.repositories.ProgressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -38,9 +39,10 @@ public class ProgressController implements CommonResponses {
         Account account = accountRepository.findByToken(token);
         if (account != null) {
             if (body.containsKey("guid")) {
+                Progress p = progressRepository.findByAccountIdAndGuid(account.getId(), body.get("guid"));
                 return new TreeMap<String, Object>() {{
                     putAll(STATUS_OK);
-                    put("progress", progressRepository.findByAccountIdAndGuid(account.getId(), body.get("guid")));
+                    put("progress", p);
                 }};
             } else {
                 return new TreeMap<String, Object>() {{

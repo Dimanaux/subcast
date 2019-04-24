@@ -1,7 +1,7 @@
 package com.example.subcast.controllers;
 
-import com.example.app.subcast.db.Account;
-import com.example.app.subcast.services.AuthService;
+import com.example.subcast.db.Account;
+import com.example.subcast.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;

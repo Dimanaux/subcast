@@ -1,6 +1,6 @@
 package com.example.subcast.db.repositories;
 
-import com.example.app.subcast.db.Progress;
+import com.example.subcast.db.Progress;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
