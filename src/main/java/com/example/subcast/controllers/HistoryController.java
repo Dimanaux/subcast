@@ -7,10 +7,7 @@ import com.example.subcast.db.repositories.HistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -28,12 +25,11 @@ public class HistoryController implements CommonResponses {
     }
 
     @ResponseBody
-    @RequestMapping(
-            method = RequestMethod.GET,
+    @GetMapping(
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
-    public Map getHistory(@RequestBody Token token) {
+    public Map getHistory(@RequestParam String token) {
         Account account = accountRepository.findByToken(token);
         if (account != null) {
             return new TreeMap<String, Object>() {{
@@ -46,8 +42,7 @@ public class HistoryController implements CommonResponses {
     }
 
     @ResponseBody
-    @RequestMapping(
-            method = RequestMethod.POST,
+    @PostMapping(
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )

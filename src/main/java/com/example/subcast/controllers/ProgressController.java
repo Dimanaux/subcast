@@ -30,12 +30,13 @@ public class ProgressController implements CommonResponses {
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
-    public Map getProgress(@RequestBody Map<String, String> body) {
-        Token token = new Token(body.get("token"));
+    public Map getProgress(@RequestParam("token") String tokenAsString,
+                           @RequestParam(value = "guid", required = false) String guid) {
+        Token token = new Token(tokenAsString);
         Account account = accountRepository.findByToken(token);
         if (account != null) {
-            if (body.containsKey("guid")) {
-                Progress p = progressRepository.findByAccountIdAndGuid(account.getId(), body.get("guid"));
+            if (guid != null && !guid.isEmpty()) {
+                Progress p = progressRepository.findByAccountIdAndGuid(account.getId(), guid);
                 return new TreeMap<String, Object>() {{
                     putAll(STATUS_OK);
                     put("progress", p);

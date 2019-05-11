@@ -228,10 +228,7 @@ Default STATUS OK response.
 ## Play later:
 Get play later request:
 ```bash
-curl -X GET \
-    -H 'Content-Type: application/json' \
-    --data '{"token":"dima2019-04-13T16:44:04.634612200"}' \
-    http://localhost:8080/play_later
+curl -X GET http://localhost:8080/play_later?token=dima2019-04-13T16:44:04.634612200
 ```
 
 Response:

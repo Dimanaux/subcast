@@ -26,7 +26,7 @@ public class PlayListController implements CommonResponses {
 
     @ResponseBody
     @GetMapping
-    public Map<String, ?> getList(@RequestBody Token token) {
+    public Map<String, ?> getList(@RequestParam String token) {
         Account account = accountRepository.findByToken(token);
         if (account != null) {
             return new TreeMap<String, Object>() {{
