@@ -226,4 +226,47 @@ curl -X POST \
 Default STATUS OK response.
 
 ## Play later:
-# TODO
+Get play later request:
+```bash
+curl -X GET \
+    -H 'Content-Type: application/json' \
+    --data '{"token":"dima2019-04-13T16:44:04.634612200"}' \
+    http://localhost:8080/play_later
+```
+
+Response:
+```json
+{
+    "playLater": [
+        {
+            "guid": "tag:soundcloud,2010:tracks/590415684",
+            "podcastId": 1162673070,
+            "link": "http://feeds.soundcloud.com/stream/594968265-mimpod-episode_27.mp3"
+        },
+        {
+            "guid": "hello",
+            "podcastId": null,
+            "link": null
+        }
+    ],
+    "status": "OK"
+}
+```
+
+Add to play later request:
+```bash
+curl -X POST \
+    -H 'Content-Type: application/json' \
+    --data '{"token":"dima2019-04-13T16:44:04.634612200","guid":"tag:soundcloud,2010:tracks/590415684"}'
+    http://localhost:8080/play_later
+```
+Default status ok response.
+
+Delete request:
+```bash
+curl -X DELETE \
+    -H 'Content-Type: application/json' \
+    --data '{"token":"dima2019-04-13T16:44:04.634612200","guid":"123"}'
+    http://localhost:8080/play_later
+```
+Default status ok response.

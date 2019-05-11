@@ -38,6 +38,14 @@ public class Account {
     )
     private List<Podcast> subscriptions = new LinkedList<>();
 
+    @ManyToMany
+    @JoinTable(
+            name = "play_later",
+            joinColumns = {@JoinColumn(name = "account_id")},
+            inverseJoinColumns = {@JoinColumn(name = "episode_guid")}
+    )
+    private List<Episode> playLater = new LinkedList<>();
+
     public Account() {
     }
 
@@ -97,6 +105,15 @@ public class Account {
 
     public Account setSubscriptions(List<Podcast> subscriptions) {
         this.subscriptions = subscriptions;
+        return this;
+    }
+
+    public List<Episode> getPlayLater() {
+        return playLater;
+    }
+
+    public Account setPlayLater(List<Episode> playLater) {
+        this.playLater = playLater;
         return this;
     }
 }
