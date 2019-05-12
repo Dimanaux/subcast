@@ -22,7 +22,7 @@ public interface PodcastRepository extends JpaRepository<Podcast, Long> {
             return (P) dbPodcast.get();
         }
 
-        savePodcast(podcast.getId(), podcast.getFeedUrl());
+        savePodcast(podcast.getId(), podcast.getFeedUrl() == null ? "" : podcast.getFeedUrl());
         return podcast;
     }
 

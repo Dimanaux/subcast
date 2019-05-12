@@ -20,7 +20,7 @@ public interface EpisodeRepository extends JpaRepository<Episode, String> {
             return (S) byId.get();
         }
 
-        saveEpisode(episode.getGuid(), episode.getPodcastId(), episode.getLink());
+        saveEpisode(episode.getGuid(), episode.getPodcastId(), episode.getLink() == null ? "" : episode.getLink());
         return (S) episode;
     }
 
