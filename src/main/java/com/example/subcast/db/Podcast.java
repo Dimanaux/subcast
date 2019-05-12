@@ -31,6 +31,10 @@ public class Podcast {
         return id;
     }
 
+    public Long getTrackId() {
+        return id;
+    }
+
     public Podcast setId(Long id) {
         this.id = id;
         return this;
