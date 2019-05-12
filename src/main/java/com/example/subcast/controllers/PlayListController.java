@@ -1,9 +1,13 @@
 package com.example.subcast.controllers;
 
 import com.example.subcast.db.Account;
+import com.example.subcast.db.Episode;
+import com.example.subcast.db.Podcast;
 import com.example.subcast.db.Token;
 import com.example.subcast.db.repositories.AccountRepository;
+import com.example.subcast.db.repositories.EpisodeRepository;
 import com.example.subcast.db.repositories.PlayLaterRepository;
+import com.example.subcast.db.repositories.PodcastRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -17,11 +21,15 @@ import java.util.TreeMap;
 public class PlayListController implements CommonResponses {
     private final AccountRepository accountRepository;
     private final PlayLaterRepository playListController;
+    private final PodcastRepository podcastRepository;
+    private final EpisodeRepository episodeRepository;
 
     @Autowired
-    public PlayListController(AccountRepository accountRepository, PlayLaterRepository playListController) {
+    public PlayListController(AccountRepository accountRepository, PlayLaterRepository playListController, PodcastRepository podcastRepository, EpisodeRepository episodeRepository) {
         this.accountRepository = accountRepository;
         this.playListController = playListController;
+        this.podcastRepository = podcastRepository;
+        this.episodeRepository = episodeRepository;
     }
 
     @ResponseBody
@@ -43,6 +51,15 @@ public class PlayListController implements CommonResponses {
     public Map<String, ?> addToList(@RequestBody Map<String, String> body) {
         Token token = new Token(body.get("token"));
         String guid = body.get("guid");
+        Long podcastId = Long.parseLong(body.get("podcastId"));
+        String podcastFeedUrl = body.get("podcastFeedUrl");
+
+        podcastRepository.save(new Podcast(podcastId, podcastFeedUrl));
+
+        Episode episode = new Episode();
+        episode.setGuid(guid);
+        episode.setPodcastId(podcastId);
+        episodeRepository.save(episode);
 
         Account account = accountRepository.findByToken(token);
         if (account != null) {

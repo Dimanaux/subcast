@@ -1,9 +1,9 @@
 package com.example.subcast.controllers;
 
-import com.example.subcast.db.Account;
-import com.example.subcast.db.Progress;
-import com.example.subcast.db.Token;
+import com.example.subcast.db.*;
 import com.example.subcast.db.repositories.AccountRepository;
+import com.example.subcast.db.repositories.EpisodeRepository;
+import com.example.subcast.db.repositories.PodcastRepository;
 import com.example.subcast.db.repositories.ProgressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -18,11 +18,16 @@ import java.util.TreeMap;
 public class ProgressController implements CommonResponses {
     private final AccountRepository accountRepository;
     private final ProgressRepository progressRepository;
+    private final PodcastRepository podcastRepository;
+    private final EpisodeRepository episodeRepository;
+
 
     @Autowired
-    public ProgressController(AccountRepository accountRepository, ProgressRepository progressRepository) {
+    public ProgressController(AccountRepository accountRepository, ProgressRepository progressRepository, PodcastRepository podcastRepository, EpisodeRepository episodeRepository) {
         this.accountRepository = accountRepository;
         this.progressRepository = progressRepository;
+        this.podcastRepository = podcastRepository;
+        this.episodeRepository = episodeRepository;
     }
 
     @ResponseBody
@@ -60,6 +65,18 @@ public class ProgressController implements CommonResponses {
     public Map updateProgress(@RequestBody Map<String, String> body) {
         Token token = new Token(body.get("token"));
         String guid = body.get("guid");
+
+        Long podcastId = Long.parseLong(body.get("podcastId"));
+        String podcastFeedUrl = body.get("podcastFeedUrl");
+
+        podcastRepository.save(new Podcast(podcastId, podcastFeedUrl));
+
+        Episode episode = new Episode();
+        episode.setGuid(guid);
+        episode.setPodcastId(podcastId);
+
+        episodeRepository.save(episode);
+
         int time = Integer.parseInt(body.get("time"));
 
         Account account = accountRepository.findByToken(token);
