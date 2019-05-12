@@ -55,9 +55,7 @@ public class SubscriptionsController implements CommonResponses {
 
         Account account = accountRepository.findByToken(token);
         if (account != null) {
-            if (feedUrl != null && !feedUrl.isEmpty()) {
-                podcastRepository.save(new Podcast(podcastId, feedUrl));
-            }
+            podcastRepository.save(new Podcast(podcastId, feedUrl));
             podcastRepository.createSubscription(account.getId(), podcastId);
             return STATUS_OK;
         } else {
