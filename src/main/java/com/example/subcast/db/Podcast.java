@@ -13,7 +13,7 @@ public class Podcast {
     private Long id;
 
     @Column(name = "feed_url", columnDefinition = "TEXT NULL DEFAULT NULL")
-    private String feedUrl;
+    private String feedUrl = "";
 
     public Podcast() {
     }

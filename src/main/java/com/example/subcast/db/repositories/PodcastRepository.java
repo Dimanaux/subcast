@@ -27,8 +27,10 @@ public interface PodcastRepository extends JpaRepository<Podcast, Long> {
     }
 
     @Query(
-            value = "INSERT INTO podcast (id, feed_url)" +
-                    " VALUES (:id, :feed) ",
+            value = "INSERT INTO podcast AS p (id, feed_url)" +
+                    " VALUES (:id, :feed) " +
+                    " ON CONFLICT (id) DO UPDATE SET " +
+                    " feed_url = coalesce(p.feed_url, :feed); ",
             nativeQuery = true
     )
     @Modifying
