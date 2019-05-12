@@ -49,7 +49,7 @@ public class HistoryController implements CommonResponses {
     public Map addToHistory(@RequestBody Map<String, String> body) {
         Token token = new Token(body.get("token"));
         String podcastId = body.get("podcastId");
-        String guid = body.get("episodeGuid");
+        String guid = body.get("guid");
         String episodeLink = body.get("episodeLink");
 
         Account account = accountRepository.findByToken(token);
