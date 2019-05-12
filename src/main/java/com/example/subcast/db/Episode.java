@@ -16,7 +16,7 @@ public class Episode {
     private Long podcastId;
 
     @Column(name = "link")
-    private String link;
+    private String link = "";
 
     public Episode() {
     }

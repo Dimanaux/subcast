@@ -26,11 +26,11 @@ public interface EpisodeRepository extends JpaRepository<Episode, String> {
 
 
     @Query(
-            value = "INSERT INTO episode (guid, podcast_id, link) " +
+            value = "INSERT INTO episode AS e (guid, podcast_id, link) " +
                     " VALUES (:guid, :podcastId, :link) " +
-                    " ON CONFLICT DO UPDATE " +
-                    " SET podcast_id = coalesce(podcast_id, :podcastId)," +
-                    " link = coalesce(link, :link) ;",
+                    " ON CONFLICT (guid) DO UPDATE " +
+                    " SET podcast_id = coalesce(e.podcast_id, :podcastId)," +
+                    " link = coalesce(e.link, :link) ;",
             nativeQuery = true
     )
     @Modifying
