@@ -53,12 +53,14 @@ public class PlayListController implements CommonResponses {
         String guid = body.get("guid");
         Long podcastId = Long.parseLong(body.get("podcastId"));
         String podcastFeedUrl = body.get("podcastFeedUrl");
+        String link = body.get("link");
 
         podcastRepository.save(new Podcast(podcastId, podcastFeedUrl));
 
         Episode episode = new Episode();
         episode.setGuid(guid);
         episode.setPodcastId(podcastId);
+        episode.setLink(link);
         episodeRepository.save(episode);
 
         Account account = accountRepository.findByToken(token);

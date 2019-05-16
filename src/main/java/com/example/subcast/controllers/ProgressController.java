@@ -65,6 +65,7 @@ public class ProgressController implements CommonResponses {
     public Map updateProgress(@RequestBody Map<String, String> body) {
         Token token = new Token(body.get("token"));
         String guid = body.get("guid");
+        String link = body.get("link");
 
         Long podcastId = Long.parseLong(body.get("podcastId"));
         String podcastFeedUrl = body.get("podcastFeedUrl");
@@ -74,7 +75,7 @@ public class ProgressController implements CommonResponses {
         Episode episode = new Episode();
         episode.setGuid(guid);
         episode.setPodcastId(podcastId);
-
+        episode.setLink(link);
         episodeRepository.save(episode);
 
         int time = Integer.parseInt(body.get("time"));
