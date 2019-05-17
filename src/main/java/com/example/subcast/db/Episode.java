@@ -18,6 +18,9 @@ public class Episode {
     @Column(name = "link")
     private String link = "";
 
+    @Column(name = "name")
+    private String name = "";
+
     public Episode() {
     }
 
@@ -45,6 +48,15 @@ public class Episode {
 
     public Episode setLink(String link) {
         this.link = link;
+        return this;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Episode setName(String name) {
+        this.name = name;
         return this;
     }
 }

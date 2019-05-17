@@ -21,7 +21,8 @@ public interface PlayLaterRepository extends JpaRepository<Episode, Long> {
     @Query(
             value = "SELECT p.episode_guid AS guid, " +
                     " coalesce(e.podcast_id) AS podcast_id, " +
-                    " coalesce(e.link) AS link " +
+                    " coalesce(e.link) AS link, " +
+                    " coalesce(e.name) AS name " +
                     " FROM play_later p " +
                     " LEFT JOIN episode e ON p.episode_guid = e.guid " +
                     " WHERE account_id = :accountId ",

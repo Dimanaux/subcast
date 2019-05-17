@@ -66,6 +66,7 @@ public class ProgressController implements CommonResponses {
         Token token = new Token(body.get("token"));
         String guid = body.get("guid");
         String link = body.get("link");
+        String name = body.get("name");
 
         Long podcastId = Long.parseLong(body.get("podcastId"));
         String podcastFeedUrl = body.get("podcastFeedUrl");
@@ -76,7 +77,8 @@ public class ProgressController implements CommonResponses {
         episode.setGuid(guid);
         episode.setPodcastId(podcastId);
         episode.setLink(link);
-        episodeRepository.save(episode);
+        episode.setName(name);
+        episodeRepository.saveOrUpdate(episode);
 
         int time = Integer.parseInt(body.get("time"));
 
